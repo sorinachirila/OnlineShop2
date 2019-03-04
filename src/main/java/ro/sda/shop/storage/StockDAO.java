@@ -5,10 +5,24 @@ import ro.sda.shop.model.Stock;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StockDAO implements GenericDAO<Stock> {
-    static List<Stock> stockList = new ArrayList<Stock>();
+public class StockDAO extends GenericDAO<Stock> {
+    private static List<Stock> stockList = new ArrayList<>();
 
-    public List<Stock> findAll() {
+    @Override
+    protected List<Stock> getItems() {
+        return stockList;
+    }
+
+    public Stock findByProductIdAndLocation(Long id, String location) {
+        for (Stock stock : getItems()) {
+            if (stock.getProduct().getId() == id && stock.getLocation().equals(location)) {
+                return stock;
+            }
+        }
+        return null;
+    }
+
+  /*  public List<Stock> findAll() {
         return stockList;
     }
 
@@ -38,7 +52,7 @@ public class StockDAO implements GenericDAO<Stock> {
         deleteById(stock.getId());
     }
 
-    public void deleteById(Long id) {
+    public boolean deleteById(Long id) {
         Stock deletedStock = null;
         for (Stock stock : stockList) {
             if (stock.getId().equals(id)) {
@@ -60,6 +74,6 @@ public class StockDAO implements GenericDAO<Stock> {
             }
         }
         return max;
-    }
+    }*/
 }
 

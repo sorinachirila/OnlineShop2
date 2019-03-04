@@ -1,20 +1,19 @@
 package ro.sda.shop.presentation;
 
 import ro.sda.shop.model.Order;
-import ro.sda.shop.storage.ClientDAO;
 import ro.sda.shop.storage.OrderDAO;
-import ro.sda.shop.storage.ProductDAO;
 
 import java.util.Scanner;
 
 public class OrderMenu extends AbstractMenu {
-//    ClientDAO clientDAO = new ClientDAO();
+    //    ClientDAO clientDAO = new ClientDAO();
 //    ProductDAO productDAO = new ProductDAO();
-    OrderDAO orderDAO = new OrderDAO();
-    OrderReader reader = new OrderReader();
-    OrderWriter writer = new OrderWriter();
+    private OrderDAO orderDAO = new OrderDAO();
+    private OrderReader reader = new OrderReader();
+    private OrderWriter writer = new OrderWriter();
 
     protected void displayOptions() {
+        System.out.println("Orders menu");
         System.out.println("1 - View all orders");
         System.out.println("2 - View order details");
         System.out.println("3 - Edit order");
@@ -29,44 +28,76 @@ public class OrderMenu extends AbstractMenu {
                 writer.writeAll(orderDAO.findAll());
                 break;
             case 2:
-                displayOrderDetails();
+                if (orderDAO.findAll().isEmpty()) {
+                    System.out.println("No orders available!");
+                } else {
+                    writer.writeAll(orderDAO.findAll());
+                    System.out.println("Please, select order to view: ");
+                    displayOrderDetails();
+                }
                 break;
             case 3:
-                editActualPrice();
+                if (orderDAO.findAll().isEmpty()) {
+                    System.out.println("No orders available!");
+                } else {
+                    writer.writeAll(orderDAO.findAll());
+                    System.out.println("Please, select order to edit:");
+                    editActualPrice();
+                }
                 break;
             case 4:
                 Order newOrder = reader.read();
-                orderDAO.add(newOrder);
+                if (newOrder == null) {
+                    System.out.println("No products/clients available!");
+                } else {
+                    orderDAO.add(newOrder);
+                    System.out.println("Order added!");
+                }
                 break;
             case 5:
-                System.out.println("Select order, by id, to delete: ");
-                Long id = new Scanner(System.in).nextLong();
-                orderDAO.deleteById(id);
+                if (orderDAO.findAll().isEmpty()) {
+                    System.out.println("No orders available!");
+                } else {
+                    writer.writeAll(orderDAO.findAll());
+                    System.out.println("Please, select order, by id, to delete: ");
+                    String inputMessage = "Order ID: ";
+                    String invalidMessage = "Invalid Order ID. Please, retry!";
+                    boolean isDeleted = orderDAO.deleteById(ConsoleUtil.readLong(inputMessage, invalidMessage));
+                    if (!isDeleted) {
+                        System.out.println("Order not found!");
+                    } else {
+                        System.out.println("Order deleted!");
+                    }
+                }
                 break;
             case 0:
                 System.out.println("Exiting to main menu");
                 break;
             default:
                 System.out.println("Invalid option");
-
         }
     }
 
     private void editActualPrice() {
-        System.out.println("Select order, by id, to edit: ");
+        System.out.println("Please, select order, by id, to edit: ");
         Long id = new Scanner(System.in).nextLong();
         System.out.println("Enter new actual price: ");
         Double actualPrice = new Scanner(System.in).nextDouble();
         Order order = orderDAO.findById(id);
-        order.setActualPrice(actualPrice);
+        order.setFinalPrice(actualPrice);
         orderDAO.update(order);
     }
 
     private void displayOrderDetails() {
-        System.out.println("Choose order, by id: ");
-        Scanner scanner = new Scanner(System.in);
-        Long id = scanner.nextLong();
+        String inputMessage = "Order ID: ";
+        String invalidMessage = "Invalid Order ID. Please, retry!";
+        Long id = ConsoleUtil.readLong(inputMessage, invalidMessage);
         Order searchedOrder = orderDAO.findById(id);
-        writer.write(searchedOrder);
+        if (searchedOrder == null) {
+            System.out.println("Order not found!");
+        } else {
+            System.out.println("Order details are:");
+            writer.write(searchedOrder);
+        }
     }
 }

@@ -2,13 +2,42 @@ package ro.sda.shop.storage;
 
 import ro.sda.shop.model.Order;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDAO implements GenericDAO<Order> {
-    static List<Order> orders = new ArrayList<Order>();
+public class OrderDAO extends GenericDAO<Order> {
+    private static List<Order> orders = new ArrayList<>();
 
-    public List<Order> findAll() {
+    @Override
+    protected List<Order> getItems() {
+        return orders;
+    }
+
+    public List<Order> findAllByClientId(Long clientId) {
+        List<Order> orders = new ArrayList<>();
+        for (Order order : getItems()) {
+            if (order.getClient().getId().equals(clientId)) {
+                orders.add(order);
+            }
+        }
+        return orders;
+    }
+
+    public List<Order> findAllBetweenDates(Timestamp start, Timestamp end) {
+        List<Order> orders = new ArrayList<>();
+        for (Order order : getItems()) {
+            if (isBetween(order, start, end)) {
+                orders.add(order);
+            }
+        }
+        return orders;
+    }
+
+    private boolean isBetween(Order order, Timestamp start, Timestamp end) {
+        return order.getTimestamp().after(start) && order.getTimestamp().before(end);
+    }
+    /*public List<Order> findAll() {
         return orders;
     }
 
@@ -37,14 +66,14 @@ public class OrderDAO implements GenericDAO<Order> {
         deleteById(order.getId());
     }
 
-    public void deleteById(Long id) {
+    public boolean deleteById(Long id) {
         Order deleteOrder = null;
         for(Order order : orders){
             if(order.getId().equals(id)){
                 deleteOrder = order;
             }
         }
-        orders.remove(deleteOrder);
+        return orders.remove(deleteOrder);
     }
 
     private Long generateNewId() {
@@ -59,5 +88,5 @@ public class OrderDAO implements GenericDAO<Order> {
             }
         }
         return max;
-    }
+    }*/
 }

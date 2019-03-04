@@ -1,16 +1,10 @@
 package ro.sda.shop.model;
 
-public class Product {
-
+public class Product extends Entity {
     //test purpose
-
-    private Long id;
     private String name;
-    private Double price;
     private String description;
-
-    public Product() {
-    }
+    private Double price;
 
    /* public Product(Integer id, String name, Double price, String description) {
         this.id = id;
@@ -19,12 +13,13 @@ public class Product {
         this.description = description;
     }*/
 
-    public Long getId() {
-        return id;
+    public Product() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Product(String name, String description, Double price) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
     }
 
     public String getName() {
@@ -35,19 +30,19 @@ public class Product {
         this.name = name;
     }
 
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

@@ -4,16 +4,14 @@ package ro.sda.shop.model;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Order {
-    private Long id;
+public class Order extends Entity {
+
     private Client client;
     private List<Product> orderedProducts;
-    private Double actualPrice;
+    private Double finalPrice;
     private OrderStatus orderStatus;
     private Timestamp timestamp;
 
-    public Order() {
-    }
  /*   public Order(Integer id, Client client, List<Product> orderedProducts, Double actualPrice, OrderStatus orderStatus, Timestamp timestamp) {
         this.id = id;
         this.client = client;
@@ -23,13 +21,6 @@ public class Order {
         this.timestamp = timestamp;
     }*/
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Client getClient() {
         return client;
@@ -47,12 +38,12 @@ public class Order {
         this.orderedProducts = orderedProducts;
     }
 
-    public Double getActualPrice() {
-        return actualPrice;
+    public Double getFinalPrice() {
+        return finalPrice;
     }
 
-    public void setActualPrice(Double actualPrice) {
-        this.actualPrice = actualPrice;
+    public void setFinalPrice(Double finalPrice) {
+        this.finalPrice = finalPrice;
     }
 
     public OrderStatus getOrderStatus() {

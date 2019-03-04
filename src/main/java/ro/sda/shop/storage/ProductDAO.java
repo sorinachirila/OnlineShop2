@@ -5,10 +5,15 @@ import ro.sda.shop.model.Product;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDAO implements GenericDAO<Product> {
-    static List<Product> products = new ArrayList<Product>();;
+public class ProductDAO extends GenericDAO<Product> {
+    private static List<Product> products = new ArrayList<>();
 
-    public List<Product> findAll() {
+    @Override
+    protected List<Product> getItems() {
+        return products;
+    }
+
+    /*public List<Product> findAll() {
         return products;
     }
 
@@ -38,7 +43,7 @@ public class ProductDAO implements GenericDAO<Product> {
         deleteById(product.getId());
     }
 
-    public void deleteById(Long id) {
+    public boolean deleteById(Long id) {
         Product deletedProduct = null;
         for (Product product : products) {
             if (product.getId().equals(id)) {
@@ -60,5 +65,5 @@ public class ProductDAO implements GenericDAO<Product> {
             }
         }
         return max;
-    }
+    }*/
 }

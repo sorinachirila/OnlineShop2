@@ -1,18 +1,24 @@
 package ro.sda.shop.model;
 
-public class Client {
-    private Long id;
+import java.util.List;
+
+public class Client extends Entity {
+
     private String name;
     private String phoneNumber;
     private String socialId;
     private String address;
+    private boolean active;
+    private List<Order> orders;
 
-    public Long getId() {
-        return id;
+    public Client() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Client(String name, String phoneNumber, String socialId, String address) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.socialId = socialId;
+        this.address = address;
     }
 
     public String getName() {
@@ -47,4 +53,19 @@ public class Client {
         this.address = address;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
 }

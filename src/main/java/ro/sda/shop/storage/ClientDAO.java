@@ -5,11 +5,17 @@ import ro.sda.shop.model.Client;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientDAO implements GenericDAO<Client> {
+public class ClientDAO extends GenericDAO<Client> {
     //1.d. static
-    static List<Client> clients = new ArrayList<Client>();
+    private static List<Client> clients = new ArrayList<>();
 
-    public List<Client> findAll() {
+    @Override
+    protected List<Client> getItems() {
+        return clients;
+    }
+
+
+/*    public List<Client> findAll() {
         return clients;
     }
 
@@ -48,14 +54,14 @@ public class ClientDAO implements GenericDAO<Client> {
         deleteById(client.getId());
     }
 
-    public void deleteById(Long id) {
+    public boolean deleteById(Long id) {
         Client deletedClient = null;
         for (Client client : clients) {
             if (client.getId().equals(id)) {
                 deletedClient = client;
             }
         }
-        clients.remove(deletedClient);
+        return clients.remove(deletedClient);
     }
 
     private Long generateNewId() {
@@ -70,6 +76,6 @@ public class ClientDAO implements GenericDAO<Client> {
             }
         }
         return max;
-    }
+    }*/
 
 }

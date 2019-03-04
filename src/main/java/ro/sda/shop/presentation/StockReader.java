@@ -2,12 +2,17 @@ package ro.sda.shop.presentation;
 
 import ro.sda.shop.model.Product;
 import ro.sda.shop.model.Stock;
+import ro.sda.shop.storage.ProductDAO;
 
 import java.util.Scanner;
 
 public class StockReader implements ConsoleReader<Stock> {
+    private ProductDAO productDAO = new ProductDAO();
 
     public Stock read() {
+        if(productDAO.findAll().isEmpty()){
+            return null;
+        }
         Stock stock = new Stock();
         Scanner scanner = new Scanner(System.in);
         System.out.print("Product: ");
@@ -28,6 +33,7 @@ public class StockReader implements ConsoleReader<Stock> {
             stock.setLocation(location);
         }else{
             System.out.println("Invalid location! Please provide correct location:");
+            location = scanner.nextLine();
         }
     }
 }

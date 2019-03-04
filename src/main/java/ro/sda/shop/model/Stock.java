@@ -1,14 +1,11 @@
 package ro.sda.shop.model;
 
-public class Stock {
+public class Stock extends Entity {
 
-    private Long id;
+    public static final String DEFAULT_LOCATION = "Oradea";
     private Product product;
-    private Integer quantity;
     private String location;
-
-    public Stock() {
-    }
+    private Integer quantity;
 
 /*    public Stock(Integer id, Product product, Integer quantity, String location) {
         this.id = id;
@@ -17,12 +14,13 @@ public class Stock {
         this.location = location;
     }*/
 
-    public Long getId() {
-        return id;
+    public Stock() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Stock(Product product, Integer quantity, String location) {
+        this.product = product;
+        this.quantity = quantity;
+        this.location = location;
     }
 
     public Product getProduct() {
@@ -33,19 +31,19 @@ public class Stock {
         this.product = product;
     }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
     public String getLocation() {
         return location;
     }
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

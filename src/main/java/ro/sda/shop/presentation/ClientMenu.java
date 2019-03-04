@@ -6,12 +6,13 @@ import ro.sda.shop.model.Client;
 import java.util.Scanner;
 
 public class ClientMenu extends AbstractMenu {
-    ClientDAO clientDAO = new ClientDAO();
-    ClientReader reader = new ClientReader();
-    ClientWriter writer = new ClientWriter();
+    private ClientDAO clientDAO = new ClientDAO();
+    private ClientReader reader = new ClientReader();
+    private ClientWriter writer = new ClientWriter();
 
 
     protected void displayOptions() {
+        System.out.println("\nClients menu");
         System.out.println("1 - View all clients");
         System.out.println("2 - View client details");
         System.out.println("3 - Edit client");
@@ -26,25 +27,50 @@ public class ClientMenu extends AbstractMenu {
                 writer.writeAll(clientDAO.findAll());
                 break;
             case 2:
-                displayClientDetails();
+                if (clientDAO.findAll().isEmpty()) {
+                    System.out.println("No clients available!");
+                } else {
+                    writer.writeAll(clientDAO.findAll());
+                    System.out.println("Please, select client to view:");
+                    displayClientDetails();
+                }
                 break;
             case 3:
-                editAddress();
+                if (clientDAO.findAll().isEmpty()) {
+                    System.out.println("No clients available!");
+                } else {
+                    writer.writeAll(clientDAO.findAll());
+                    System.out.println("Please, select client to edit:");
+                    editAddress();
+                }
                 break;
             case 4:
                 Client newClient = reader.read();
                 clientDAO.add(newClient);
+                System.out.println("Client added.");
                 break;
             case 5:
-                System.out.println("Select client to delete: ");
-                Long id = new Scanner(System.in).nextLong();
-                clientDAO.deleteById(id);
+                if (clientDAO.findAll().isEmpty()) {
+                    System.out.println("No clients available!");
+                } else {
+                    writer.writeAll(clientDAO.findAll());
+                    System.out.println("Please, select client to delete:");
+                    String inputMessage = "Client ID: ";
+                    String invalidMessage = "Invalid Client ID. Please, retry!";
+                    Long id = ConsoleUtil.readLong(inputMessage, invalidMessage);
+                    boolean isDeleted = clientDAO.deleteById(id);
+                    if (!isDeleted) {
+                        System.out.println("Client not found!");
+                    } else {
+                        System.out.println("Client deleted!");
+                    }
+                }
                 break;
             case 0:
                 System.out.println("Exiting to main menu");
                 break;
             default:
-                System.out.println("Invalid option");
+                System.out.println("Invalid option!");
 
         }
     }

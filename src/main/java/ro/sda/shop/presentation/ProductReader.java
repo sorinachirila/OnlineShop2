@@ -11,7 +11,7 @@ public class ProductReader implements ConsoleReader<Product> {
         readProductName(product, scanner);
         readProductDescription(product, scanner);
         System.out.println("Please, write product's price: ");
-        Double price = scanner.nextDouble();
+        Double price = ConsoleUtil.getPrice();
         product.setPrice(price);
         return product;
     }
@@ -19,21 +19,21 @@ public class ProductReader implements ConsoleReader<Product> {
     private void readProductDescription(Product product, Scanner scanner) {
         System.out.print("Please, write product's description(must start with upper letter):  ");
         String productDescription = scanner.nextLine();
-        if(productDescription.matches("^[A-Z]{1}[a-z0-9]+")){
-            product.setDescription(productDescription);
-        }else{
+        while (!productDescription.matches("^[A-Z]{1}[a-z0-9]+")) {
             System.out.println("Invalid product description! Please provide correct description:");
+            productDescription = scanner.nextLine();
+
         }
+        product.setDescription(productDescription);
     }
 
     private void readProductName(Product product, Scanner scanner) {
         System.out.print("Please, write product name(must start with upper letter): ");
         String productName = scanner.nextLine();
-        if(productName.matches("^[A-Z]{1}[a-z0-9]+$")){
-            product.setName(productName);
-        }else{
+        while (!productName.matches("^[A-Z]{1}[a-z0-9]+$")) {
             System.out.println("Invalid product name! Please provide correct name:");
             productName = scanner.nextLine();
         }
+        product.setName(productName);
     }
 }

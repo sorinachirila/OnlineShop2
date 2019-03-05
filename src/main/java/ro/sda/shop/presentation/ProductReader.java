@@ -19,7 +19,7 @@ public class ProductReader implements ConsoleReader<Product> {
     private void readProductDescription(Product product, Scanner scanner) {
         System.out.print("Please, write product's description(must start with upper letter):  ");
         String productDescription = scanner.nextLine();
-        while (!productDescription.matches("^[A-Z]{1}[a-z0-9]+")) {
+        while (!productDescription.matches("^[A-Z]{1}([a-z0-9\\s]){2,}")) {
             System.out.println("Invalid product description! Please provide correct description:");
             productDescription = scanner.nextLine();
 

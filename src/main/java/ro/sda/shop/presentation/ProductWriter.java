@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ProductWriter implements ConsoleWriter<Product> {
     public void write(Product product) {
-        //System.out.println("Id: " + product.getId());
+        System.out.println("Id: " + product.getId());
         System.out.println("Name: " + product.getName());
         System.out.println("Description: " + product.getDescription());
         System.out.println("Price: " + product.getPrice());
@@ -24,7 +24,7 @@ public class ProductWriter implements ConsoleWriter<Product> {
     }
 
     private void writeSummary(Product product) {
-        //System.out.print("Id: " + product.getId());
+        System.out.print("Id: " + product.getId());
         System.out.print(" Name: " + product.getName());
         System.out.print(" Description: " + product.getDescription());
         System.out.println(" Price: " + product.getPrice());

@@ -10,7 +10,7 @@ public class StockReader implements ConsoleReader<Stock> {
     private ProductDAO productDAO = new ProductDAO();
 
     public Stock read() {
-        if(productDAO.findAll().isEmpty()){
+        if (productDAO.findAll().isEmpty()) {
             return null;
         }
         Stock stock = new Stock();
@@ -29,9 +29,9 @@ public class StockReader implements ConsoleReader<Stock> {
     private void readStockLocation(Stock stock, Scanner scanner) {
         System.out.println("Please, write stock's location (must start with upper letter): ");
         String location = scanner.nextLine();
-        if(location.matches("^[A-Z]{1}[a-z0-9]+")){
+        if (location.matches("^[A-Z]{1}[a-z0-9]+")) {
             stock.setLocation(location);
-        }else{
+        } else {
             System.out.println("Invalid location! Please provide correct location:");
             location = scanner.nextLine();
         }

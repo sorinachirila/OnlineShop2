@@ -47,6 +47,7 @@ public class OrderService {
         return true;
     }
 
+    // public static
     private Double computePrice(List<Product> products) {
         Double total = 0.d;
         for (Product product : products) {

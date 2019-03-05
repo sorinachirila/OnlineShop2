@@ -41,8 +41,7 @@ public class OrderReader implements ConsoleReader<Order> {
         }
 
         List<Product> productList = getProducts(noOfProducts);
-        System.out.println("Actual price: ");
-        Double actualPrice = ConsoleUtil.getPrice();
+        Double actualPrice = ConsoleUtil.getPrice();//OrderService.computePrice(productList);
         order.setClient(selectedClient);
         order.setOrderedProducts(productList);
         order.setOrderStatus(OrderStatus.ACCEPTED);
@@ -72,7 +71,6 @@ public class OrderReader implements ConsoleReader<Order> {
                 i++;
             }
         }
-
         return productList;
     }
 

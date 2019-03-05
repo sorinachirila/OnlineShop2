@@ -29,7 +29,7 @@ public class StockMenu extends AbstractMenu {
                     System.out.println("No stocks available!");
                 } else {
                     writer.writeAll(stockDAO.findAll());
-                    System.out.println("Please select a stock to view: ");
+                    //System.out.println("Please select a stock to view: ");
                     displayStockDetails();
                 }
                 break;

@@ -19,7 +19,7 @@ public class ClientReader implements ConsoleReader<Client> {
     private void readAddress(Client client, Scanner scanner) {
         System.out.println("Please, write client address (must start with upper letter): ");
         String address = scanner.nextLine();
-        while (!address.matches("^[A-Z]{1}[a-z0-9]+")) {
+        while (!address.matches("^[A-Z]{1}([a-z0-9\\s]){2,}")) {
             System.out.println("Invalid address! Please provide correct address:");
             address = scanner.nextLine();
         }
@@ -29,7 +29,7 @@ public class ClientReader implements ConsoleReader<Client> {
     private void readSocialID(Client client, Scanner scanner) {
         System.out.print("Please, write client social ID (must have 13 digits): ");
         String socialId = scanner.nextLine();
-        while (socialId.matches("^[0-2]{1}[0-9]{12}")) {
+        while (!socialId.matches("[1|2]{1}[0-9]{12}")) {
             System.out.println("Invalid social ID! Please provide correct social ID: ");
             socialId = scanner.nextLine();
         }
@@ -39,7 +39,7 @@ public class ClientReader implements ConsoleReader<Client> {
     private void readPhoneNumber(Client client, Scanner scanner) {
         System.out.print("Please, write client phone number(must have 10 digits): ");
         String phoneNumber = scanner.nextLine();
-        while (!phoneNumber.matches("^[0-9]{1}[0-9]{9}$")) {
+        while (!phoneNumber.matches("0[0-9]{9}")) {
             System.out.println("Invalid phone number! Please provide correct phone number:");
             phoneNumber = scanner.nextLine();
         }
